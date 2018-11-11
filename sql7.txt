@@ -1,0 +1,77 @@
+MM ==>Month(0-12)
+MON=>MONTH IN THE ABRIVATED (JAN FEB,...)
+MONTH=>NAME OF THE MONTH
+YY=>YEAR(14,15)
+YYYY=>YEAR(
+
+
+
+
+
+
+
+CREATE TABLE T1(SNO INT,NAME VARCHAR(90),DOB DATE,DOJ TIMESTAMP);
+
+INSERT INTO T1 VALUES(1,'ABC', SYSDATE , SYSDATE);
+INSERT INTO T1 VALUES(2,'XYZ',TO_DATE('1990/12/25','YYYY/MM/DD'),
+                            TO_DATE('2014/02/25','YYYY/MM/DD')); 
+                            
+INSERT INTO T1 VALUES(3,'XYZ',TO_DATE('1990-12-25','YYYY-MM-DD'),
+                            TO_DATE('2014-02-25','YYYY-DD-MM')); 
+                            
+INSERT INTO T1 VALUES(4,'XYZ',TO_DATE('19901225','YYYYMMDD'),
+                            TO_DATE('20140225','YYYYMMDD')); 
+
+insert into t1 values(5,'xyz',to_date('1990-JAN-25','YYYY-MON-DD'),
+                            TO_DATE('2014-23-jul','YYYY-DD-MON'));                            
+insert into t1 values(6,'xyz',TO_DATE('1990-JULY-25','YYYY-MONTH-DD'),
+                            TO_DATE('2014-23-MARCH','YYYY-DD-MONTH')); 
+insert into t1 values(7,'xyz','31-MAR-98','22-APR-14');//default DD-MON-YY
+
+
+
+insert into t1 values(8,'xyz',to_date('1998/05/20:13:25:48' ,   'YYYY/MM/DD:HH24:MI:SS'),
+                              to_date('2013/25/10:03:25:48AM' , 'YYYY/DD/MM:HH:MI:SSAM'));
+insert into t1 values(9,'xyz',to_date('1998/05/20:10:25:48PM' , 'YYYY/MM/DD:HH12:MI:SSPM'),
+                              to_date('2013/25/10:03:25:48AM' , 'YYYY/DD/MM:HH:MI:SSAM'));
+
+
+insert into t1 values(10,'xyz',TO_DATE('1998/05/20:10:25:48PM' ,   'YYYY/MM/DD:HH12:MI:SSPM'),
+                              TO_timestamp('2013/25/10:03:25:48AM' , 'YYYY/DD/MM:HH:MI:SSAM'));
+insert into t1 values(11,'xyz',to_date('199-JULY-25' , 'YYYY-MONTH-DD'),
+                              TO_TIMESTAMP('2014-23-MARCH' , 'YYYY-DD-MONTH'));
+insert into t1 values(12,'xyz',to_date('1990.JULY.25' , 'YYYY.MONTH.DD'),
+                              TO_TIMESTAMP('2014 23 MARCH' , 'YYYY DD MONTH'));
+
+
+insert into t1 values(13,'xyz',to_date('1998/05/20-10-25-48PM' , 'YYYY/MM/DD-HH12-MI-SSPM'),
+                              TO_TIMESTAMP('2013/25/10.03.25.48AM' , 'YYYY/DD/MM.HH.MI.SSAM'));
+insert into t1 values(14,'xyz',to_date('1998/05/20-10-25-48PM' , 'YYYY/MM/DD-HH12-MI-SSPM'),
+                              TO_TIMESTAMP('2013/25/10.03.25.48.999AM' , 'YYYY/DD/MM.HH.MI.SS.FF.AM'));
+
+//insert into t1 values(14,'xyz',to_date('1998/05/20-10-25-48-550PM' , 'YYYY/MM/DD-HH12-MI-SS.FFPM'),
+                              TO_TIMESTAMP('2013/25/10.03.25.48.999AM' , 'YYYY/DD/MM.HH.MI.SS.FF.AM'));
+  //ERROR.TO DATE WONT SUPPORT MILLISECONDS.
+
+
+
+SELECT *FROM t1;              //OBSERVE DEFAULT DATRE AND YIMTSTAMP OUTPUT
+SELECT TO_CHAR(DOB,'YYYY/MM/DD')AS DOB,
+        TO_CHAR(DOJ,'YYYY/MM/DD')AS DOJ FROM t1;
+SELECT TO_CHAR(DOB,'YYYY/MM/DD-HH12-MI-SSPM')AS DOB,
+        TO_CHAR(DOJ,'YYYY/DD/MM.HH.MI.SSAM')AS DOJ FROM t1;
+SELECT TO_CHAR(DOB,'YYYY-MONTH-DD')AS DOB,
+        TO_CHAR(DOJ,'YYYY-DD-MONTH')AS DOJ FROM t1;
+
+//IMP FOR DEVELOPING PRJETS
+//COMPARISON WHICH RECORDS ARE BEFORE AND AFTER DATE 
+SELECT *FROM t1 WHERE DOB>DOJ;
+SELECT *FROM t1 WHERE DOJ>DOB;
+SELECT *FROM t1 WHERE DOB >'25-DEC-90';
+SELECT *FROM t1 WHERE DOB BETWEEN '25-DEC-90' AND '20-MAR-90';
+SELECT *FROM t1 WHERE DOB =TO_DATE('1990/12/25','YYYY/MM/DD');
+SELECT *FROM t1 WHERE DOB >TO_DATE('1990/12/25','YYYY/MM/DD');
+SELECT *FROM t1 WHERE DOB BETWEEN TO_DATE('1990/01/01','YYYY/MM/DD')AND 
+                                                             TO_DATE('2000/01/01','YYYY/MM/DD');
+
+ 
